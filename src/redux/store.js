@@ -12,11 +12,11 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedReducer, // Use persisted reducer for 'auth'
+    auth: persistedReducer, 
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Required for redux-persist to avoid serialization issues
+      serializableCheck: false, 
     }),
 });
 
