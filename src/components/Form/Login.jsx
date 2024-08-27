@@ -30,7 +30,7 @@ const Login = () => {
       if (response.ok) {
         
         dispatch(setToken(data.token));
-        alert('Welcome:  ' + data.data.name)
+        
         
       } else {
         alert('Login Failed: ' + data.message);
