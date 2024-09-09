@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../redux/authslice';
 import './style.css'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const userToken =useSelector((state) => state.auth.token); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+   const navigate = useNavigate();
   const dispatch = useDispatch();
   
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +34,7 @@ const Login = () => {
       if (response.ok) {
         
         dispatch(setToken(data.token));
+        navigate('/home')
         
         
       } else {
@@ -40,6 +45,10 @@ const Login = () => {
       alert('Error during login');
     }
   };
+  
+  if (userToken) {
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="login-container">

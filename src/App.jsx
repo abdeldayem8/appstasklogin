@@ -1,27 +1,36 @@
 
 import './App.css'
-import Login from './components/Form/Login'
-import { useDispatch, useSelector } from 'react-redux'
-import {logout} from './redux/authslice'
 
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Home from './components/Home/Home'
+import About from './components/About/About'
+import Login from './components/Form/Login'
+import Layout from './components/Layout/Layout'
+import Protect from './components/Protect/Protect'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {path:'/' ,element:<Login></Login>},
+      { path: 'home', element: <Protect><Home /></Protect>  },
+      { path: 'about', element:<Protect><About /></Protect>  },
+      { path: 'login', element: <Login /> },
+    ],
+  },
+]);
 function App() {
-const dispatch = useDispatch();
-const userToken =useSelector((state) => state.auth.token);
-const handleLogout = () => {
-  dispatch(logout());
-};
-  return (
-    <div>
-      {userToken ? (
-        <div>
-          <h2>Welcome, User!</h2>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <Login />  
-      )}
-    </div>
-  );
+
+  return <>
+  
+    <RouterProvider router={router}/>
+
+  
+  </>
+   
+    
+  
 };
 
 
